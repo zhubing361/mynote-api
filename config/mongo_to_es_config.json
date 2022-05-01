@@ -1,0 +1,23 @@
+{
+    "mainAddress": "127.0.0.1:30002",
+    "oplogFile": "./oplog/oplog.timestamp",
+    "logging": {
+        "type": "file",
+        "filename": "./oplog/mongo-connector.log",
+        "format": "%(asctime)s [%(levelname)s] %(name)s:%(lineno)d - %(message)s",
+        "rotationWhen": "midnight",
+        "rotationInterval": 1,
+        "rotationBackups": 10
+    },
+    "namespaces": {
+        "flask._doc": {}
+    },
+    "docManagers": [
+        {
+            "docManager": "elastic2_doc_manager",
+            "targetURL": "127.0.0.1:9200",
+            "bulkSize": 1000,
+            "autoCommitInterval": 5
+        }
+    ]
+}
