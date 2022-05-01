@@ -19,10 +19,13 @@ db_notes = mongo.db.notes
 
 
 def show_date_time(data):
-    data['created_at'] = datetime.utcfromtimestamp(
-        data['created_at']+28800).strftime("%Y-%m-%d %H:%M:%S")
-    data['updated_at'] = datetime.utcfromtimestamp(
-        data['updated_at']+28800).strftime("%Y-%m-%d %H:%M:%S")
+    try:
+        data['created_at'] = datetime.utcfromtimestamp(
+            data['created_at']+28800).strftime("%Y-%m-%d %H:%M:%S")
+        data['updated_at'] = datetime.utcfromtimestamp(
+            data['updated_at']+28800).strftime("%Y-%m-%d %H:%M:%S")
+    except KeyError as err:
+        print(err)
 
     return data
 
@@ -207,7 +210,7 @@ api.add_resource(NoteList, '/notes')
 api.add_resource(Note, '/notes/<note_id>')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
 
 # gunicorn note:app -c gunicorn.conf.py
